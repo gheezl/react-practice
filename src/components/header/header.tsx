@@ -1,13 +1,11 @@
-import {useContext, useEffect} from "react"
-
 import { Typography, Box } from "@mui/material";
-import { GlobalContext } from "../../contexts/GlobalContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 import { HeaderBorder } from "./header-styles";
 
 
 const Header = () => {
-    // const {user, setUser} = useContext(GlobalContext)
+    const {user} = useGlobalContext()
 
     return(
         <Box sx={HeaderBorder}>
