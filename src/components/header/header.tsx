@@ -1,8 +1,13 @@
+import { Typography, Box } from "@mui/material";
+
+import { HeaderBorder } from "./header-styles";
+
 const Header = () => {
+
     return(
-        <div>
-            <h1>THIS IS THE HEADER</h1>
-        </div>
+        <Box sx={HeaderBorder}>
+            <Typography variant="h3">Welcome to the weather app</Typography>
+        </Box>
     )
 }
 

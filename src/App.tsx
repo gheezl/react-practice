@@ -7,17 +7,22 @@ import SignUp from './pages/sign-up/sign-up';
 
 import Header from './components/header/header';
 
+import { GlobalContext } from './contexts/GlobalContext';
+
 const App = () => {
   return (
     <>
-      <Header />
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/sign-up' element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
+      <GlobalContext.Provider value={{user: {}}}>
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/sign-in' element={<SignIn />} />
+            <Route path='/sign-up' element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </GlobalContext.Provider>
+      
     </>
   )
 }
