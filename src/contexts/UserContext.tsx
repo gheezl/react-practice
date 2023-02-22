@@ -10,16 +10,22 @@ export interface User {
 }
 
 export interface UserContextInterface {
-    user: User,
-    setUser: any
+    user: User | null,
+    setUser: Object | null
 }
 
 // context construction and provider
 
-export const UserContext = createContext<UserContextInterface>({user: {name: '', email: '', location: '', isLoggedIn: false, usesMetric: false}, setUser: null});
+export const UserContext = createContext<UserContextInterface>({user: null, setUser: null});
 
 export const UserContextProvider = ({children}: any) => {
-    const [user, setUser] = useState<User>({name: '', email: '', location: '', isLoggedIn: false, usesMetric: false});
+    const [user, setUser] = useState<User>({
+        name: '', 
+        email: '', 
+        location: '', 
+        isLoggedIn: false, 
+        usesMetric: false
+    });
 
     // these functions will be passed down through the provider and will update the user state when changes are made
     const signUp = () => {
