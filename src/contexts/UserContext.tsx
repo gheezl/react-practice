@@ -9,6 +9,7 @@ export interface User {
     location: string | null,
     isLoggedIn: boolean,
     usesMetric: boolean
+    otherLocations: string[]
 }
 
 export interface UserContextInterface {
@@ -18,9 +19,9 @@ export interface UserContextInterface {
     logOut: any
 }
 
-// context creation and provider
+const UserContext = createContext<UserContextInterface>({user: null, signIn: null, signUp: null, logOut: null});
 
-export const UserContext = createContext<UserContextInterface>({user: null, signIn: null, signUp: null, logOut: null});
+// context creation and provider
 
 export const UserContextProvider = ({children}: any) => {
     const [user, setUser] = useState<User>({
@@ -28,7 +29,8 @@ export const UserContextProvider = ({children}: any) => {
         email: '', 
         location: '', 
         isLoggedIn: false, 
-        usesMetric: false
+        usesMetric: false,
+        otherLocations: []
     });
 
     // firebase auth interactions
@@ -41,7 +43,8 @@ export const UserContextProvider = ({children}: any) => {
                     email: user.user.email,
                     location: "",
                     isLoggedIn: true,
-                    usesMetric: false
+                    usesMetric: false,
+                    otherLocations: []
                 })
             })
             .catch(error => {
@@ -62,12 +65,14 @@ export const UserContextProvider = ({children}: any) => {
     const logOut = () => {
         signOut(auth)
             .then(() => {
+                console.log("signed out");
                 setUser({
                     name: null,
                     email: null,
                     location: null,
                     isLoggedIn: false,
-                    usesMetric: false
+                    usesMetric: false,
+                    otherLocations: []
                 })
             })
             .catch(error => {
