@@ -7,12 +7,12 @@ import SignUp from './pages/sign-up/sign-up';
 
 import Header from './components/header/header';
 
-import { GlobalContextProvider } from './contexts/GlobalContext';
+import { UserContextProvider } from './contexts/UserContext';
 
 const App = () => {
   return (
     <>
-      <GlobalContextProvider>
+      <UserContextProvider>
         <Header />
           <BrowserRouter>
             <Routes>
@@ -21,7 +21,7 @@ const App = () => {
               <Route path='/sign-up' element={<SignUp />} />
             </Routes>
           </BrowserRouter>
-      </GlobalContextProvider>
+      </UserContextProvider>
     </>
   )
 }
