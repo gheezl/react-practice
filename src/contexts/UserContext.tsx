@@ -4,9 +4,9 @@ import { auth } from '../api-services/firebase/config';
 
 // needed interfaces for the user
 export interface User {
-    name: string,
-    email: string,
-    location: string,
+    name: string | null,
+    email: string | null,
+    location: string | null,
     isLoggedIn: boolean,
     usesMetric: boolean
 }
@@ -31,12 +31,18 @@ export const UserContextProvider = ({children}: any) => {
         usesMetric: false
     });
 
-
-    // these functions will be passed down through the provider and will update the user state when changes are made
+    // firebase auth interactions
     const signIn = (email: string, password: string) => {
         signInWithEmailAndPassword(auth, email, password)
             .then(user => {
                 console.log(user.user);
+                setUser({
+                    name: user.user.email,
+                    email: user.user.email,
+                    location: "",
+                    isLoggedIn: true,
+                    usesMetric: false
+                })
             })
             .catch(error => {
                 console.log(error.message)
@@ -56,12 +62,20 @@ export const UserContextProvider = ({children}: any) => {
     const logOut = () => {
         signOut(auth)
             .then(() => {
-                console.log("signed out")
+                setUser({
+                    name: null,
+                    email: null,
+                    location: null,
+                    isLoggedIn: false,
+                    usesMetric: false
+                })
             })
             .catch(error => {
                 console.log(error.message)
             })
     }
+
+    // will put functions to update user data here
 
     return (
         <UserContext.Provider value={{user, signIn, signUp, logOut}}>
