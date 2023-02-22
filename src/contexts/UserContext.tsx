@@ -1,5 +1,5 @@
 import {createContext, useState, useContext} from 'react';
-import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut} from "firebase/auth";
 import { auth } from '../api-services/firebase/config';
 
 // needed interfaces for the user
@@ -13,14 +13,14 @@ export interface User {
 
 export interface UserContextInterface {
     user: User | null,
-    signIn: Object | null,
+    signIn: any,
     signUp: any,
-    signOut: Object | null
+    logOut: any
 }
 
 // context creation and provider
 
-export const UserContext = createContext<UserContextInterface>({user: null, signIn: null, signUp: null, signOut: null});
+export const UserContext = createContext<UserContextInterface>({user: null, signIn: null, signUp: null, logOut: null});
 
 export const UserContextProvider = ({children}: any) => {
     const [user, setUser] = useState<User>({
@@ -38,11 +38,12 @@ export const UserContextProvider = ({children}: any) => {
             .then(user => {
                 console.log(user.user);
             })
-        // will add firebase sign in through here
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
     const signUp = (email: string, password: string) => {
-        // will add firebase sign up through here
         createUserWithEmailAndPassword(auth, email, password)
             .then(user => {
                 console.log(user.user);
@@ -52,12 +53,18 @@ export const UserContextProvider = ({children}: any) => {
             })
     }
 
-    const signOut = () => {
-        // will add firebase sign out through here
+    const logOut = () => {
+        signOut(auth)
+            .then(() => {
+                console.log("signed out")
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
     return (
-        <UserContext.Provider value={{user, signIn, signUp, signOut}}>
+        <UserContext.Provider value={{user, signIn, signUp, logOut}}>
             {children}
         </UserContext.Provider>
     )
