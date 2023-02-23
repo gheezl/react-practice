@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 import Home from "./pages/home/home";
 import SignIn from './pages/sign-in/sign-in';
@@ -11,11 +12,14 @@ import Header from './components/header/header';
 
 import { UserContextProvider } from './contexts/UserContext';
 
+import {customMuiTheme} from "./global/global-styles"
+
 const App = () => {
   return (
     <>
       <UserContextProvider>
-        <Header />
+        <ThemeProvider theme={customMuiTheme}>
+          <Header />
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -25,6 +29,7 @@ const App = () => {
               <Route path='/profile' element={<Profile />} />
             </Routes>
           </BrowserRouter>
+        </ThemeProvider>
       </UserContextProvider>
     </>
   )
