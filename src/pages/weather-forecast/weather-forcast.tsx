@@ -5,7 +5,7 @@ import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-a
 import { useUserContext } from "../../contexts/UserContext";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("Delta, Ohio")
+    const [userLocation, setUserLocation] = useState("delta ohio")
     const [weather, setWeather] = useState<any>()
     const [formatedCurrentDate, setFormatedCurrentDate] = useState<string>("")
     const [formatedCurrentTIme, setFormatedCurrentTime] = useState<string>("")
@@ -89,7 +89,7 @@ const WeatherForcast = () => {
           </Grid>
           <Grid item sm={12} md={6}>
             <Paper sx={PaperStyling} elevation={3}>
-              <Grid container>
+              <Grid container direction="row" justifyContent="space-around" >
                 <Typography variant="h2">{weather?.current.condition.text}</Typography>
                 <Typography variant="h2">{user?.usesMetric ? `${weather?.current.temp_c} C` : `${weather?.current.temp_f} F`}</Typography> 
               </Grid>
