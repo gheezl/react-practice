@@ -8,7 +8,7 @@ import SignUp from './pages/sign-up/sign-up';
 import WeatherForcast from './pages/weather-forecast/weather-forcast';
 import Profile from './pages/profile/profile';
 
-import Header from './components/header/header';
+import Header from './pages/header/header';
 
 import { UserContextProvider } from './contexts/UserContext';
 

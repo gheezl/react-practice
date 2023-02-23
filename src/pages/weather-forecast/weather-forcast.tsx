@@ -1,14 +1,16 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, LinearProgress, Paper, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-api/config";
 import { useUserContext } from "../../contexts/UserContext";
+import {formatEpochDate, getTimeOfDay, determinePercentOfDay} from "./utility-functions"
+import { PaperStyling, GridContainerStyling } from "./styles";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("delta ohio")
+    const [userLocation, setUserLocation] = useState("Delta ohio")
     const [weather, setWeather] = useState<any>()
     const [formatedCurrentDate, setFormatedCurrentDate] = useState<string>("")
-    const [formatedCurrentTIme, setFormatedCurrentTime] = useState<string>("")
+    const [formatedCurrentTime, setFormatedCurrentTime] = useState<string>("")
 
     const {user} = useUserContext()
 
@@ -45,37 +47,6 @@ const WeatherForcast = () => {
       }
     }, [])
 
-    // utility functions
-    const formatEpochDate = (epochTime: number) => {
-      const date = new Date(epochTime * 1000);
-      return date.toLocaleDateString()
-    }
-
-    const getTimeOfDay = (epochTime: number) => {
-      const date = new Date(epochTime * 1000);
-      let hours = date.getHours();
-      let minutes = date.getMinutes().toString();
-
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-
-      if (minutes.length < 2) {
-        minutes = "0" + minutes;
-      }
-
-      return hours + ':' + minutes + ' ' + ampm;
-    }
-
-    // styles
-    const PaperStyling = {
-      "padding": "10px",
-    }
-
-    const GridContainerStyling = {
-      "marginTop": "5px",
-      "marginBottom": "10px"
-    }
 
     return (
       <Container maxWidth="xl">
@@ -84,16 +55,32 @@ const WeatherForcast = () => {
           <Grid item sm={12} md={6}>
             <Paper sx={PaperStyling} elevation={3}>
               <Typography variant="h5">{weather?.location.name}, {weather?.location.region}, {weather?.location.country}</Typography>
-              <Typography>As of {formatedCurrentTIme} on {formatedCurrentDate}</Typography> 
+              <Typography>As of {formatedCurrentTime} on {formatedCurrentDate}</Typography> 
+              <LinearProgress sx={{"borderRadius": "25px", "height": "5px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
             </Paper>
           </Grid>
           <Grid item sm={12} md={6}>
             <Paper sx={PaperStyling} elevation={3}>
               <Grid container direction="row" justifyContent="space-around" >
-                <Typography variant="h2">{weather?.current.condition.text}</Typography>
-                <Typography variant="h2">{user?.usesMetric ? `${weather?.current.temp_c} C` : `${weather?.current.temp_f} F`}</Typography> 
+                <Grid item md={6}>
+                  <Typography variant="h2">{user?.usesMetric ? `${weather?.current.temp_c} C` : `${weather?.current.temp_f} F`}</Typography> 
+                </Grid>
+                <Grid item md={6}>
+                  <Typography variant="h2">{weather?.current.condition.text}</Typography>
+                </Grid>
+                <Grid item md={6}>
+                  <Typography>Feels like : {user?.usesMetric ? `${weather.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>
+                </Grid>
+                <Grid item md={6}>
+                  <Typography>Humidity : {weather?.current.humidity}</Typography>
+                </Grid>
+                <Grid item md={6}>
+                  <Typography>Wind direction : {weather?.current.wind_dir}</Typography>
+                </Grid>
+                <Grid item md={6}>
+                  <Typography>Wind speed : {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
+                </Grid>
               </Grid>
-              {/* <Typography variant="h3">Feels like {user?.usesMetric ? `${weather?.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>  */}
             </Paper>
           </Grid>
         </Grid>
