@@ -7,7 +7,7 @@ import {formatEpochDate, getTimeOfDay, determinePercentOfDay} from "./utility-fu
 import { PaperStyling, GridContainerStyling } from "./styles";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("Delta ohio")
+    const [userLocation, setUserLocation] = useState("Los Angeles")
     const [weather, setWeather] = useState<any>()
     const [formatedCurrentDate, setFormatedCurrentDate] = useState<string>("")
     const [formatedCurrentTime, setFormatedCurrentTime] = useState<string>("")
@@ -56,7 +56,7 @@ const WeatherForcast = () => {
             <Paper sx={PaperStyling} elevation={3}>
               <Typography variant="h5">{weather?.location.name}, {weather?.location.region}, {weather?.location.country}</Typography>
               <Typography>As of {formatedCurrentTime} on {formatedCurrentDate}</Typography> 
-              <LinearProgress sx={{"borderRadius": "25px", "height": "5px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
+              <LinearProgress sx={{"borderRadius": "25px", "height": "5px", marginTop: "10px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
             </Paper>
           </Grid>
           <Grid item sm={12} md={6}>
@@ -75,10 +75,10 @@ const WeatherForcast = () => {
                   <Typography>Humidity : {weather?.current.humidity}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Wind direction : {weather?.current.wind_dir}</Typography>
+                  <Typography>Wind speed : {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Wind speed : {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
+                  <Typography>Wind direction : {weather?.current.wind_dir}</Typography>
                 </Grid>
               </Grid>
             </Paper>
@@ -93,7 +93,7 @@ const WeatherForcast = () => {
             weather?.forecast.forecastday.map((day: any) => (
               <Grid key={day?.date} md={2} item>
                 <Paper sx={PaperStyling}>
-                  <Typography>{day?.date}</Typography>
+                  <Typography>{formatEpochDate(day.date_epoch)}</Typography>
                 </Paper>
               </Grid>
             ))
