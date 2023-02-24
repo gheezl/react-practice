@@ -52,7 +52,7 @@ const WeatherForcast = () => {
               <Typography variant="h5">{weather?.location.name}, {weather?.location.region}, {weather?.location.country}</Typography>
               <Typography>{formatEpochDate(weather?.location.localtime_epoch)}</Typography> 
               <LinearProgress sx={{"borderRadius": "25px", "height": "5px", marginTop: "10px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
-              <Typography>{getTimeOfDay(weather?.location.localtime_epoch)}</Typography>
+              <Typography sx={{marginLeft: determinePercentOfDay(weather?.location.localtime_epoch) / 1.175 }}>{getTimeOfDay(weather?.location.localtime_epoch)}</Typography>
             </Paper>
           </Grid>
           <Grid item sm={12} md={6}>
