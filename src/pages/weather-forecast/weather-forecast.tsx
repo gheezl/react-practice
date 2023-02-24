@@ -14,7 +14,7 @@ import ForecastCard from "./components/forecast-card";
 import AlertCard from "./components/alert-card";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("Delta ohio")
+    const [userLocation, setUserLocation] = useState("cerritos")
     const [weather, setWeather] = useState<any>(null)
 
     const {user} = useUserContext();

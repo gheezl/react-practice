@@ -26,6 +26,5 @@ export const determinePercentOfDay = (epochTime: number): number => {
     
     const percentOfDay = (hours / 24) * 100;
     const percentOfHour = minutes / 60;
-    console.log(`${percentOfDay + percentOfHour}vw`)
     return percentOfDay + percentOfHour;
 }

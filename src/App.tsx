@@ -5,7 +5,7 @@ import { Box, createTheme, ThemeProvider } from '@mui/material';
 import Home from "./pages/home/home";
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
-import WeatherForcast from './pages/weather-forecast/weather-forcast';
+import WeatherForcast from './pages/weather-forecast/weather-forecast';
 import Profile from './pages/profile/profile';
 
 import Header from './pages/header/header';
@@ -16,11 +16,13 @@ import {customMuiTheme} from "./global/global-styles"
 import BackgroundImage from './pages/background-image/background-image';
 
 const App = () => {
+  
+
   return (
     <>
       <UserContextProvider>
         <ThemeProvider theme={customMuiTheme}>
-          <BackgroundImage />
+          {/* <BackgroundImage> */}
             <Header />
             <BrowserRouter>
               <Routes>
@@ -31,6 +33,7 @@ const App = () => {
                 <Route path='/profile' element={<Profile />} />
               </Routes>
             </BrowserRouter>
+          {/* </BackgroundImage> */}
         </ThemeProvider>
       </UserContextProvider>
     </>
