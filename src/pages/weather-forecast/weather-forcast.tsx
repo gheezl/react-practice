@@ -7,37 +7,33 @@ import {formatEpochDate, getTimeOfDay, determinePercentOfDay} from "./utility-fu
 import { PaperStyling, GridContainerStyling } from "./styles";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("Los Angeles")
+    const [userLocation, setUserLocation] = useState("san francisco")
     const [weather, setWeather] = useState<any>()
-    const [formatedCurrentDate, setFormatedCurrentDate] = useState<string>("")
-    const [formatedCurrentTime, setFormatedCurrentTime] = useState<string>("")
 
-    const {user} = useUserContext()
+    const {user} = useUserContext();
 
     useEffect(() => {
         let mounted = true;
 
         const getWeatherForcast = async () => {
           try {
-              const response = await fetch(`${BASEURL}/forecast.json?key=${APIKEY}&q=${userLocation}&days=7&aqi=yes&alerts=yes`, {
-                method: 'GET',
-                headers: WeatherAPiHeaders
-              });
-          
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-          
-              const data = await response.json();
-              console.log(data);
-              if (mounted) {
-                setFormatedCurrentTime(getTimeOfDay(data.location.localtime_epoch));
-                setFormatedCurrentDate(formatEpochDate(data.location.localtime_epoch));
-                setWeather(data);
-              }
-            } catch (error) {
-              console.error('Error:', error);
+            const response = await fetch(`${BASEURL}/forecast.json?key=${APIKEY}&q=${userLocation}&days=7&aqi=yes&alerts=yes`, {
+              method: 'GET',
+              headers: WeatherAPiHeaders
+            });
+        
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
+        
+            const data = await response.json();
+            console.log(data);
+            if (mounted) {
+              setWeather(data);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
       }
 
       getWeatherForcast()
@@ -47,7 +43,6 @@ const WeatherForcast = () => {
       }
     }, [])
 
-
     return (
       <Container maxWidth="xl">
         {/* displays the location and current weather */}
@@ -55,8 +50,9 @@ const WeatherForcast = () => {
           <Grid item sm={12} md={6}>
             <Paper sx={PaperStyling} elevation={3}>
               <Typography variant="h5">{weather?.location.name}, {weather?.location.region}, {weather?.location.country}</Typography>
-              <Typography>As of {formatedCurrentTime} on {formatedCurrentDate}</Typography> 
+              <Typography>{formatEpochDate(weather?.location.localtime_epoch)}</Typography> 
               <LinearProgress sx={{"borderRadius": "25px", "height": "5px", marginTop: "10px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
+              <Typography>{getTimeOfDay(weather?.location.localtime_epoch)}</Typography>
             </Paper>
           </Grid>
           <Grid item sm={12} md={6}>
@@ -69,16 +65,16 @@ const WeatherForcast = () => {
                   <Typography variant="h2">{weather?.current.condition.text}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Feels like : {user?.usesMetric ? `${weather.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>
+                  <Typography>Feels like {user?.usesMetric ? `${weather.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Humidity : {weather?.current.humidity}</Typography>
+                  <Typography>Humidity is at {weather?.current.humidity}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Wind speed : {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
+                  <Typography>Wind speed of {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
                 </Grid>
                 <Grid item md={6}>
-                  <Typography>Wind direction : {weather?.current.wind_dir}</Typography>
+                  <Typography>Wind direction from {weather?.current.wind_dir}</Typography>
                 </Grid>
               </Grid>
             </Paper>
@@ -106,7 +102,7 @@ const WeatherForcast = () => {
         <Grid container sx={GridContainerStyling} spacing={1}>
           {
             weather?.alerts.alert.map((alert: any) => (
-              <Grid key={alert?.headline} md={2} item>
+              <Grid key={alert?.headline} md={4} item>
                 <Paper sx={PaperStyling}>
                   <Typography>{alert?.headline}</Typography>
                 </Paper>
