@@ -1,4 +1,4 @@
-import { Box, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
+import { Box, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-api/config";
@@ -87,17 +87,42 @@ const WeatherForcast = () => {
             </Paper>
           </Grid>
         </Grid>
-        {/* displays the 7 day forcast */}
+
         <Box>
+          <Typography variant="h4">10 day Forecast</Typography>
+        </Box>
+        {/* we will add our scroll here  */}
+        <div style={{display: "flex", overflow: "scroll"}}>
+        {
+            weather?.forecast.forecastday.map((day: any) => (
+                <Card style={{border: "1px solid black", margin: "5px"}}>
+                  <CardHeader title={formatEpochDate(day.date_epoch)} />
+                  <CardContent >
+                    <Typography variant="h6">{day?.day.condition.text}</Typography>
+                  </CardContent>
+                  <CardMedia
+                      component="img"
+                      image={day?.day.condition.icon}
+                  />
+                  <CardActions>
+                      <Typography>See more information</Typography>
+                  </CardActions>
+                </Card>
+            ))
+          }
+        </div>
+        
+        {/* displays the 10 day forcast */}
+        {/* <Box>
           <Typography variant="h4">10 day Forecast</Typography>
         </Box>
         <Grid container sx={GridContainerStyling} spacing={1}>
           {
             weather?.forecast.forecastday.map((day: any) => (
-              <ForecastCard day={day} />
+                <ForecastCard day={day} />
             ))
           }
-        </Grid>
+        </Grid> */}
         {/* displays the alerts  */}
         <Box>
           <Typography variant="h4">Alerts</Typography>

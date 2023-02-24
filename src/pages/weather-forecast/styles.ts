@@ -5,8 +5,8 @@ export const PaperStyling = {
 }
 
 export const GridContainerStyling = {
-"marginTop": "5px",
-"marginBottom": "10px"
+    "marginTop": "5px",
+    "marginBottom": "10px"
 }
 
 export const ArrowStyling = (localTime: any) => {

@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Paper, Typography } from "@mui/material";
+import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Paper, Typography, Box } from "@mui/material";
 import { useState } from "react";
 import { formatEpochDate } from "../utility-functions";
 
@@ -7,7 +7,7 @@ const ForecastCard = ({day}: any) => {
 
     return (
         <Grid key={day?.date} md={2} item>
-            <Card>
+            <Card >
                 <CardHeader
                     title={formatEpochDate(day.date_epoch)}
                 />
