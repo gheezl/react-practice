@@ -1,13 +1,15 @@
-import { Box, Grid, LinearProgress, Paper, Typography } from "@mui/material";
+import { Box, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-api/config";
 import { useUserContext } from "../../contexts/UserContext";
 import {formatEpochDate, getTimeOfDay, determinePercentOfDay} from "./utility-functions"
-import { PaperStyling, GridContainerStyling } from "./styles";
+import { PaperStyling, GridContainerStyling, ArrowStyling } from "./styles";
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ForecastCard from "./components/forecast-card";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("san francisco")
+    const [userLocation, setUserLocation] = useState("delta ohio")
     const [weather, setWeather] = useState<any>()
 
     const {user} = useUserContext();
@@ -17,7 +19,7 @@ const WeatherForcast = () => {
 
         const getWeatherForcast = async () => {
           try {
-            const response = await fetch(`${BASEURL}/forecast.json?key=${APIKEY}&q=${userLocation}&days=7&aqi=yes&alerts=yes`, {
+            const response = await fetch(`${BASEURL}/forecast.json?key=${APIKEY}&q=${userLocation}&days=10&aqi=yes&alerts=yes`, {
               method: 'GET',
               headers: WeatherAPiHeaders
             });
@@ -43,6 +45,8 @@ const WeatherForcast = () => {
       }
     }, [])
 
+
+
     return (
       <Container maxWidth="xl">
         {/* displays the location and current weather */}
@@ -52,7 +56,10 @@ const WeatherForcast = () => {
               <Typography variant="h5">{weather?.location.name}, {weather?.location.region}, {weather?.location.country}</Typography>
               <Typography>{formatEpochDate(weather?.location.localtime_epoch)}</Typography> 
               <LinearProgress sx={{"borderRadius": "25px", "height": "5px", marginTop: "10px"}} variant="determinate" value={determinePercentOfDay(weather?.location.localtime_epoch)} />
-              <Typography sx={{marginLeft: determinePercentOfDay(weather?.location.localtime_epoch) / 1.175 }}>{getTimeOfDay(weather?.location.localtime_epoch)}</Typography>
+              <Stack sx={ArrowStyling(weather?.location.localtime_epoch)}>
+                <KeyboardArrowUpIcon />
+                <Typography >{getTimeOfDay(weather?.location.localtime_epoch)}</Typography>
+              </Stack>
             </Paper>
           </Grid>
           <Grid item sm={12} md={6}>
@@ -82,16 +89,12 @@ const WeatherForcast = () => {
         </Grid>
         {/* displays the 7 day forcast */}
         <Box>
-          <Typography variant="h4">7 day Forecast</Typography>
+          <Typography variant="h4">10 day Forecast</Typography>
         </Box>
         <Grid container sx={GridContainerStyling} spacing={1}>
           {
             weather?.forecast.forecastday.map((day: any) => (
-              <Grid key={day?.date} md={2} item>
-                <Paper sx={PaperStyling}>
-                  <Typography>{formatEpochDate(day.date_epoch)}</Typography>
-                </Paper>
-              </Grid>
+              <ForecastCard day={day} />
             ))
           }
         </Grid>
