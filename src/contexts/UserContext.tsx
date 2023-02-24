@@ -29,7 +29,7 @@ export const UserContextProvider = ({children}: any) => {
         email: '', 
         location: '', 
         isLoggedIn: false, 
-        usesMetric: true,
+        usesMetric: false,
         otherLocations: []
     });
 
