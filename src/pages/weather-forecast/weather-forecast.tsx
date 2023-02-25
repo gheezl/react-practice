@@ -14,7 +14,7 @@ import ForecastCard from "./components/forecast-card";
 import AlertCard from "./components/alert-card";
 
 const WeatherForcast = () => {
-    const [userLocation, setUserLocation] = useState("cerritos")
+    const [userLocation, setUserLocation] = useState("Los Angeles")
     const [weather, setWeather] = useState<any>(null)
 
     const {user} = useUserContext();
@@ -125,11 +125,10 @@ const WeatherForcast = () => {
             )
             : (
               <Box sx={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid black"}}>
-                <CircularProgress sx={{height: "5000px"}} />
+                <CircularProgress />
               </Box>
             )
           }
-          
         </Container>
       </Box>
       

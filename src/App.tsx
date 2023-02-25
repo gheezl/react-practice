@@ -22,7 +22,7 @@ const App = () => {
     <>
       <UserContextProvider>
         <ThemeProvider theme={customMuiTheme}>
-          {/* <BackgroundImage> */}
+          {/* <BackgroundImage /> */}
             <Header />
             <BrowserRouter>
               <Routes>
@@ -33,7 +33,6 @@ const App = () => {
                 <Route path='/profile' element={<Profile />} />
               </Routes>
             </BrowserRouter>
-          {/* </BackgroundImage> */}
         </ThemeProvider>
       </UserContextProvider>
     </>

@@ -1,4 +1,4 @@
-import { Box,  Paper, Typography } from "@mui/material";
+import { Box,  Paper, Typography, Button } from "@mui/material";
 import { ForeCastCardStyling } from "../styles";
 import { formatEpochDate } from "../utility-functions";
 
@@ -9,7 +9,9 @@ const ForecastCard = ({day}: any) => {
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "center"}} >
                 <img style={{height: "100px"}} src={day?.day.condition.icon} />
             </Box>
-            <Typography>More information</Typography>
+            <Button>
+                <Typography>See more information</Typography>
+            </Button>
         </Paper>
     )
 }
