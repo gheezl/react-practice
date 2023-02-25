@@ -8,7 +8,7 @@ import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-a
 import { useUserContext } from "../../contexts/UserContext";
 // abstracted information imports
 import {formatEpochDate, getTimeOfDay, determinePercentOfDay} from "./utility-functions"
-import { PaperStyling, GridContainerStyling, ArrowStyling } from "./styles";
+import { PaperStyling, GridContainerStyling, ArrowStyling, ForecastScrollBorder } from "./styles";
 // component imports
 import ForecastCard from "./components/forecast-card";
 import AlertCard from "./components/alert-card";
@@ -86,16 +86,16 @@ const WeatherForcast = () => {
                           </Grid>
                         </Grid>
                         
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={3}>
                           <Typography>Feels like {user?.usesMetric ? `${weather?.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={3}>
                           <Typography>Wind speed of {user?.usesMetric ? `${weather?.current.wind_kph} KPH` : `${weather?.current.wind_mph} MPH`}</Typography>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={3}>
                           <Typography>Humidity is at {weather?.current.humidity}</Typography>
                         </Grid>
-                        <Grid item md={6}>
+                        <Grid item md={6} sm={3}>
                           <Typography>Wind direction from {weather?.current.wind_dir}</Typography>
                         </Grid>
                       </Grid>
@@ -106,7 +106,7 @@ const WeatherForcast = () => {
                 <Box>
                   <Typography variant="h4">10 day Forecast</Typography>
                 </Box>
-                <Box sx={{display: "flex", overflow: "scroll"}}>
+                <Box sx={ForecastScrollBorder}>
                   {
                     weather?.forecast.forecastday.map((day: any) => (
                       <ForecastCard day={day} />
@@ -126,9 +126,7 @@ const WeatherForcast = () => {
                 </Grid>
               </>
             )
-            : (
-              <CircularProgress />
-            )
+            : <CircularProgress />
           }
         </Container>
       </Box>

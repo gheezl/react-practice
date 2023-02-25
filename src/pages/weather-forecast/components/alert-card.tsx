@@ -3,11 +3,6 @@ import { useEffect } from "react";
 import { PaperStyling } from "../styles";
 
 const AlertCard = ({alert}: any) => {
-
-    useEffect(() => {
-        console.log(alert)
-    }, [alert])
-
     return (
         <Grid key={alert?.headline} md={4} item>
             <Paper sx={PaperStyling} >

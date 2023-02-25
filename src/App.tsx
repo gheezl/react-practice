@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Box, createTheme, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 
 import Home from "./pages/home/home";
 import SignIn from './pages/sign-in/sign-in';
@@ -12,12 +12,10 @@ import Header from './pages/header/header';
 
 import { UserContextProvider } from './contexts/UserContext';
 
-import {customMuiTheme} from "./global/global-styles"
+import {customMuiTheme} from "./global/global-styles";
 import BackgroundImage from './pages/background-image/background-image';
 
 const App = () => {
-  
-
   return (
     <>
       <UserContextProvider>

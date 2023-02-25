@@ -1,18 +1,29 @@
 import { determinePercentOfDay } from "./utility-functions"
 
-export const PaperStyling = {
-    "padding": "10px",
+export const GridContainerStyling = {
+    marginTop: "5px",
+    marginBottom: "10px"
 }
 
-export const ForeCastCardStyling = {
+export const PaperStyling = {
+    padding: "10px",
+}
+
+export const ForecastCardStyling = {
     padding: "10px", 
     margin: "5px",
     minWidth: "100px"
 }
 
-export const GridContainerStyling = {
-    "marginTop": "5px",
-    "marginBottom": "10px"
+export const ForecastScrollBorder = {
+    display: "flex", 
+    overflow: "scroll"
+}
+
+export const ForecastCardImage = {
+    display: "flex", 
+    alignItems: "center", 
+    justifyContent: "center"
 }
 
 export const ArrowStyling = (localTime: any) => {
@@ -22,4 +33,4 @@ export const ArrowStyling = (localTime: any) => {
         alignItems: "center", 
         width: "100px",
     }
-  }
+}
