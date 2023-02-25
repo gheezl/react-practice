@@ -1,26 +1,19 @@
+import { useSpring, animated } from 'react-spring'
+
 const BackgroundImage = ({children}: any) => {
-    const BackgroundStyles = {
-        // width: "99.9vw",
-        // height: "99.9vh",
-        position: "absolute",
-        left: "0px",
-        top: "0px",
-        zIndex: "-1",
-        filter: "blur(15px)",
-        // backgroundImage: "url('https://media.istockphoto.com/id/904784522/photo/dramatic-sky.jpg?b=1&s=170667a&w=0&k=20&c=X9_uAgNjcXImrgK6FmRXbWxApajiOv8Xg3l6JzX-ujg=')",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover"
-        // backgroundSize: "cover",
-      } as React.CSSProperties
+    const animation = useSpring({
+        from: {
+            opacity: 0,
+        },
+        to: {
+            opacity: 1,
+        }
+    })
 
     return (
-        <img style={BackgroundStyles} src='https://media.istockphoto.com/id/904784522/photo/dramatic-sky.jpg?b=1&s=170667a&w=0&k=20&c=X9_uAgNjcXImrgK6FmRXbWxApajiOv8Xg3l6JzX-ujg='  />
-        // <div style={BackgroundStyles}>
-        //     {children}
-        // </div>
-
+        <animated.div style={animation}>
+            <h1>HELLO WORLD LOLOLOLO</h1>
+        </animated.div>
     )
 }
 
