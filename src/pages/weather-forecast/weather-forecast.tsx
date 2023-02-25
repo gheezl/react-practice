@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // MUI imports
-import { Box, CircularProgress, Container, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Fade, Grid, Grow, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 // API info imports
 import { BASEURL, WeatherAPiHeaders, APIKEY } from "../../api-services/weather-api/config";
@@ -77,12 +77,15 @@ const WeatherForcast = () => {
                   <Grid item sm={12} md={6}>
                     <Paper sx={PaperStyling} elevation={3}>
                       <Grid container direction="row" justifyContent="space-around" >
-                        <Grid item md={6}>
-                          <Typography variant="h2">{user?.usesMetric ? `${weather?.current.temp_c} C` : `${weather?.current.temp_f} F`}</Typography> 
+                        <Grid container direction="row" justifyContent="space-around" >
+                          <Grid item md={6}>
+                            <Typography variant="h2">{user?.usesMetric ? `${weather?.current.temp_c} C` : `${weather?.current.temp_f} F`}</Typography> 
+                          </Grid>
+                          <Grid item md={6}>
+                            <Typography variant="h2">{weather?.current.condition.text}</Typography>
+                          </Grid>
                         </Grid>
-                        <Grid item md={6}>
-                          <Typography variant="h2">{weather?.current.condition.text}</Typography>
-                        </Grid>
+                        
                         <Grid item md={6}>
                           <Typography>Feels like {user?.usesMetric ? `${weather?.current.feelslike_c} C` : `${weather?.current.feelslike_f} F`}</Typography>
                         </Grid>
@@ -124,9 +127,7 @@ const WeatherForcast = () => {
               </>
             )
             : (
-              <Box sx={{width: "100%", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid black"}}>
-                <CircularProgress />
-              </Box>
+              <CircularProgress />
             )
           }
         </Container>

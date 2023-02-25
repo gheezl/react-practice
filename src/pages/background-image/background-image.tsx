@@ -1,4 +1,5 @@
 import { useSpring, animated } from 'react-spring'
+// import {Parallax, ParallaxLayer } from 'react-spring/parallax'
 
 const BackgroundImage = ({children}: any) => {
     const animation = useSpring({
@@ -11,9 +12,12 @@ const BackgroundImage = ({children}: any) => {
     })
 
     return (
-        <animated.div style={animation}>
-            <h1>HELLO WORLD LOLOLOLO</h1>
-        </animated.div>
+        <div style={{zIndex: "-1", position: "absolute"}}>
+            <animated.div style={animation}>
+                {/* <h1>HELLO WORLD LOLOLOLO sdf dfdddddddddddddddddddddddddddddddddd</h1> */}
+            </animated.div>
+        </div>
+        
     )
 }
 
