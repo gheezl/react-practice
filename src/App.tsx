@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material';
 import Home from "./pages/home/home";
 import SignIn from './pages/sign-in/sign-in';
 import SignUp from './pages/sign-up/sign-up';
-import WeatherForcast from './pages/weather-forecast/weather-forecast';
+import WeatherForecast from './pages/weather-forecast/weather-forecast';
 import Profile from './pages/profile/profile';
 
 import Header from './pages/header/header';
@@ -27,7 +27,7 @@ const App = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='/sign-in' element={<SignIn />} />
                 <Route path='/sign-up' element={<SignUp />} />
-                <Route path='/weather-forcast' element={<WeatherForcast />} />
+                <Route path='/weather-forecast' element={<WeatherForecast />} />
                 <Route path='/profile' element={<Profile />} />
               </Routes>
             </BrowserRouter>
